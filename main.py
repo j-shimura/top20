@@ -50,9 +50,24 @@ if uploaded_file:
         for i in range(20):
             plt.rcParams['figure.figsize'] = (40, 20)
             fig = plt.figure()
-            x = column_lis[i] - 6
-            y = column_lis[i] + 6
+            # プロットは合計13個（最大値がセンター）
+            x = column_lis[i] - 6 # 前半6個プロット
+            y = column_lis[i] + 7 # 後半6個プロット
+            # 上限電圧の折れ線グラフ
+            plt.plot(time[x:y], vu[x:y],  'o-', color="red", label="Upper limit voltage")
+            # 下限電圧の折れ線グラフ
+            plt.plot(time[x:y], vl[x:y], 'o-', color="blue", label="Lower limit voltage")
+            # x軸に目盛線を設定
+            plt.grid(which = "major", axis = "x", color = "blue", alpha = 0.4, linestyle = "--", linewidth = 1)
+            # y軸に目盛線を設定
+            plt.grid(which = "major", axis = "y", color = "green", alpha = 0.4, linestyle = "--", linewidth = 1)
+            # グラフタイトルの表示とサイズ
             plt.title("feature" + " " + "%02.f"%(i+1) + " " + "rank", fontsize=32)
-            plt.scatter(time[x:y], vu[x:y])
-            plt.scatter(time[x:y], vl[x:y])
+            # y軸小数点以下2桁表示
+            plt.gca().xaxis.set_major_formatter(plt.FormatStrFormatter('%.2f'))
+            # y軸の値のサイズ
+            plt.yticks(fontsize=28)
+            # x軸の値のサイズ
+            plt.xticks(fontsize=28)
+            plt.legend(bbox_to_anchor=(1, 1), loc='upper right', borderaxespad=0, fontsize=32)
             st.pyplot(fig)
