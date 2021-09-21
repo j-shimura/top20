@@ -29,7 +29,8 @@ if uploaded_file:
     # テキストを入力したら実行開始
     if target:
 
-        st.write("目的の特徴量を軸に昇順にCSVを変換")
+        st.write("目的の特徴量を軸に降順にCSVを変換")
+
         # 特徴量Ciを軸に昇順に変換
         df = dat2.sort_values(target, ascending=False)
         # 選択した特徴量を軸に昇順に変換したCSVを表示
